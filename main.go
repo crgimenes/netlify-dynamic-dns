@@ -22,11 +22,11 @@ var cfg = &struct {
 	AccessToken    string `cfgRequired:"true"`
 	Zone           string `cfgRequired:"true"`
 	Record         string `cfgDefault:"home"`
+	IPService      string `cfgDefault:"https://api.ipify.org?format=text"`
 	zoneID         string `cfg:"-"`
 	recordHostname string `cfg:"-"`
+	MaxTimeout     int    `cfg:"maxtimeout" cfgDefault:"20"`
 }{}
-
-const maxDelay = 15
 
 var netlify = porcelain.NewRetryable(
 	porcelain.Default.Transport,
@@ -47,11 +47,12 @@ func GetIPv4() (string, error) {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 
-	req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.ipify.org?format=text", nil)
+	req, _ := http.NewRequestWithContext(ctx, "GET", cfg.IPService, nil)
 	client := &http.Client{}
+	defer cancel()
 
 	go func() {
-		time.Sleep(time.Second * maxDelay)
+		time.Sleep(time.Second * time.Duration(cfg.MaxTimeout))
 		cancel()
 	}()
 
