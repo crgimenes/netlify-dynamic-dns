@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/go-openapi/runtime v0.25.0
 	github.com/go-openapi/strfmt v0.21.3
-	github.com/gosidekick/goconfig v1.3.1
+	crg.eti.br/go/config v1.3.1
 	github.com/netlify/open-api v1.4.0
 )
 

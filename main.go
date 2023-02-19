@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
+	"crg.eti.br/go/config"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/gosidekick/goconfig"
 	"github.com/netlify/open-api/go/models"
 	"github.com/netlify/open-api/go/plumbing/operations"
 	"github.com/netlify/open-api/go/porcelain"
